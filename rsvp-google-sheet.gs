@@ -77,7 +77,7 @@ function doGet() {
 
 const TEXT = {
   English: {
-    subject: "Your R.S.V.P. – Sophie & Dimitar, 14.08.27",
+    subject: "Your R.S.V.P. – Sophie & Dimitar, 14.08.2027",
     hello: name => `Dear ${name},`,
     yes: "Thank you for your R.S.V.P. – we can’t wait to celebrate with you on the 14th of August 2027 at the Hyatt Regency, Pravets!",
     no: "Thank you for letting us know. We’ll miss you – and we’ll raise a glass to you on the day!",
@@ -91,7 +91,7 @@ const TEXT = {
     names: "Sophie & Dimitar"
   },
   Bulgarian: {
-    subject: "Вашият отговор – Софи и Димитър, 14.08.27",
+    subject: "Вашият отговор – Софи и Димитър, 14.08.2027",
     hello: name => `Здравейте, ${name},`,
     yes: "Благодарим ви за отговора – нямаме търпение да празнуваме заедно на 14 август 2027 г. в Хаят Риджънси, Правец!",
     no: "Благодарим ви, че ни уведомихте. Ще ни липсвате – ще вдигнем тост за вас!",
@@ -143,7 +143,7 @@ function sendConfirmation_(data) {
 `<div style="background:#FAF8EF;padding:32px 16px;font-family:'Playfair Display',Georgia,serif;">
   <div style="max-width:520px;margin:0 auto;background:#FFFFFF;border:1px solid #DDE1E8;border-radius:20px;padding:36px 32px;text-align:center;">
     <div style="font-style:italic;font-weight:bold;font-size:30px;color:${ink};letter-spacing:-1px;">${esc_(t.names)}</div>
-    <div style="font-style:italic;font-size:16px;color:${ink};margin-top:2px;">14.08.27</div>
+    <div style="font-style:italic;font-size:16px;color:${ink};margin-top:2px;">14.08.2027</div>
     <div style="width:60px;height:1px;background:#C9D0DA;margin:22px auto;"></div>
     <p style="font-size:17px;color:${text};margin:0 0 14px;">${esc_(t.hello(firstName))}</p>
     <p style="font-size:17px;line-height:1.55;color:${text};margin:0 0 24px;">${esc_(coming ? t.yes : t.no)}</p>
