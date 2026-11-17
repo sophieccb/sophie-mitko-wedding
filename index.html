@@ -1,0 +1,943 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sophie &amp; Dimitar · 14.08.27</title>
+<meta name="description" content="Save the date: Sophie & Dimitar are getting married on the 14th of August 2027 at the Hyatt Regency, Pravets.">
+<meta name="theme-color" content="#FAF8EF">
+
+<!-- Link preview (WhatsApp, iMessage, etc.).
+     Once the site is live, replace "images/share.jpg" with the full address,
+     e.g. https://your-domain.com/images/share.jpg – WhatsApp needs the full URL. -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Sophie & Dimitar · 14.08.27">
+<meta property="og:description" content="Save the date – 14th of August 2027, Hyatt Regency, Pravets">
+<meta property="og:image" content="images/share.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- Tab icon -->
+<link rel="icon" type="image/png" sizes="64x64" href="images/favicon.png">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+
+<script>document.documentElement.classList.add("js");</script>
+<link rel="preload" href="images/ribbon-frame.webp" as="image" type="image/webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FAF8EF;
+    --ink: #7E8CA2;        /* headings, slate blue */
+    --text: #8C97A8;       /* body copy */
+    --line: rgba(126,140,162,.45);
+    --white: #FFFFFF;
+
+    /* One spacing scale for the whole page */
+    --section: clamp(64px, 9vw, 104px);   /* above and below every section */
+    --after-illus: 14px;                  /* illustration → title */
+    --after-title: 36px;                  /* section title → first subheading */
+    --between-blocks: 40px;               /* paragraph → next subheading */
+    --after-sub: 10px;                    /* subheading → its text */
+    --between-paras: 16px;
+    --measure: 520px;                     /* comfortable line length */
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--cream);
+    color: var(--text);
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 17px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+  }
+  /* Figma: titles at -12% letter spacing, body text at 0 */
+  .names, .hero-date, .lang, .lang *, h2, h3, .btn, .footer p, .timeline time {
+    letter-spacing: -0.12em; word-spacing: 0.12em;
+  }
+  /* Cyrillic letters are wider, so -12% makes them collide: loosen titles in Bulgarian */
+  /* Cyrillic names are wider – allow them to shrink a bit more on small phones so they stay on one line */
+  html:lang(bg) .names { letter-spacing: -0.05em; word-spacing: 0.06em; font-size: clamp(34px, 10.5vw, 112px); }
+  html:lang(bg) :is(h2, h3, .btn, .footer p, .timeline time) { letter-spacing: -0.04em; word-spacing: 0.06em; }
+  h1, h2, h3 { text-wrap: balance; }
+  p { text-wrap: pretty; }
+  a { color: inherit; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; text-decoration-color: var(--line); transition: color .3s, text-decoration-color .3s; }
+  a:hover { color: var(--ink); text-decoration-color: currentColor; }
+  img { display: block; max-width: 100%; }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    position: relative;
+    min-height: 100vh; min-height: 100svh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; color: var(--white);
+    padding: 80px 16px;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0; z-index: -1;
+    background: #E6DCA8 url("images/hero-water.webp") center / cover no-repeat;
+  }
+  /* soft haze at the bottom so the language switch reads on the pale grass */
+  .hero-bg::after {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(96,112,140,.30), rgba(96,112,140,0) 28%);
+  }
+  .names {
+    font-style: italic; font-weight: 700;
+    font-size: clamp(48px, 9vw, 112px);
+    line-height: 1;
+  }
+  /* iPhone Safari crops blurred text to its own box while it fades in, and these
+     italic, tightly spaced letters spill past it (the "S" tail, the final "r").
+     Invisible breathing room keeps every letter inside; the negative margin
+     cancels it so the layout doesn't move. */
+  .names, .hero-date { padding: .2em .3em; margin: -.2em -.3em; }
+  .hero-date {
+    font-style: italic; font-weight: 500;
+    font-size: clamp(26px, 3.6vw, 42px);
+    margin-top: calc(4px - .2em);
+  }
+  .lang {
+    position: absolute; bottom: 36px; left: 0; right: 0;
+    font-style: italic; font-weight: 700; font-size: 26px;
+  }
+  .lang button {
+    font: inherit; color: inherit; background: none; border: 0; cursor: pointer;
+    text-decoration: none; opacity: .75; padding: 0 2px;
+  }
+  .lang button[aria-pressed="true"] { opacity: 1; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+  .lang span { opacity: .75; }
+
+  /* ---------- Shared section layout ---------- */
+  .section { padding: var(--section) 16px; text-align: center; }
+  .section h2 {
+    font-style: italic; font-weight: 700; color: var(--ink);
+    font-size: 40px; line-height: 1.1;
+  }
+  .section h3 {
+    font-style: italic; font-weight: 700; color: var(--ink);
+    font-size: 22px; line-height: 1.2;
+    margin: var(--between-blocks) 0 var(--after-sub);
+  }
+  .section h2 + h3 { margin-top: var(--after-title); }
+  .section p { max-width: var(--measure); margin-inline: auto; }
+  .section p + p { margin-top: var(--between-paras); }
+
+  /* Illustrations: one fixed slot so every title lines up the same way,
+     and each picture sized to a similar visual weight */
+  .illus-slot {
+    margin-bottom: var(--after-illus);
+    display: flex; align-items: flex-end; justify-content: center;
+  }
+  /* Sections after a divider start closer to it: the illustrations
+     already add their own airy space at the top */
+  .divider + .section { padding-top: calc(var(--section) * .45); }
+  .illus { width: auto; height: var(--h); max-width: none; }
+
+  /* Small ornament between sections */
+  .divider {
+    display: flex; align-items: center; justify-content: center; gap: 14px;
+    color: var(--line);
+  }
+  .divider::before, .divider::after {
+    content: ""; width: 64px; height: 1px; background: currentColor;
+  }
+  .divider span {
+    width: 6px; height: 6px; border: 1px solid currentColor; transform: rotate(45deg);
+  }
+
+  /* ---------- Buttons: soft outlined pill ---------- */
+  .btn {
+    display: inline-block;
+    color: var(--ink); background: rgba(255,255,255,.35);
+    border: 1px solid var(--ink); border-radius: 999px;
+    font-style: italic; font-weight: 700; font-size: 22px; line-height: 1;
+    padding: 12px 30px 14px; text-decoration: none;
+    /* hover: colour sweeps in from the left, filling the outline – no lifting */
+    background:
+      linear-gradient(var(--ink), var(--ink)) no-repeat 0 0 / 0% 100%,
+      rgba(255,255,255,.35);
+    transition: background-size .7s cubic-bezier(.22,.61,.36,1), color .5s ease;
+  }
+  .btn:hover, .btn:focus-visible {
+    color: var(--white);
+    background-size: 100% 100%, auto;
+  }
+
+  /* ---------- Save the date ---------- */
+  .std {
+    position: relative;
+    max-width: 1100px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: center; gap: 40px;
+  }
+  .polaroid { width: 160px; flex-shrink: 0; }
+  .polaroid img { width: 100%; height: auto; }
+  /* polaroids hang and sway gently, each at its own pace */
+  .polaroid { transform: rotate(var(--r)); transform-origin: 50% 0; }
+  .polaroid.left  { --r: 4deg;  animation: polaroid-sway 5.5s ease-in-out infinite; }
+  .polaroid.right { --r: -5deg; animation: polaroid-sway 6.5s ease-in-out -2s infinite; }
+  @keyframes polaroid-sway {
+    0%, 100% { transform: rotate(calc(var(--r) - 4deg)); }
+    50%      { transform: rotate(calc(var(--r) + 4deg)) translateY(-6px); }
+  }
+
+  .frame {
+    position: relative; width: 400px; max-width: 100%; aspect-ratio: 975/1301; flex-shrink: 0;
+    container-type: inline-size;   /* lets the text scale with the frame */
+  }
+  .frame > img { position: absolute; inset: 0; width: 100%; height: 100%; }
+  /* Text is sized relative to the frame (cqw = 1% of frame width), so it keeps the same
+     proportions at every screen size. Extra top padding drops the title below the
+     ribbon's narrow "waist" into the widest part of the frame. (At 400px: title 36px, text 18px.) */
+  .frame-text {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 24% 15% 4%;
+    font-size: 4.5cqw; line-height: 1.35;
+  }
+  .frame-text h2 { font-size: 9cqw; margin-bottom: 4cqw; }
+  .frame-text p + p { margin-top: 3cqw; }
+  .frame-text .btn { margin-top: 5cqw; font-size: 4.75cqw; padding: 2.5cqw 6cqw 3cqw; }
+  html:lang(bg) .frame-text { font-size: 4cqw; }
+  html:lang(bg) .frame-text h2 { font-size: 6cqw; }
+
+  /* ---------- Itinerary timeline ---------- */
+  .timeline {
+    list-style: none; display: inline-grid; gap: 0;
+    grid-template-columns: auto 13px auto; column-gap: 18px;
+    text-align: left; margin-inline: auto;
+  }
+  .timeline li { display: contents; }
+  .timeline time {
+    text-align: right; color: var(--ink); font-style: italic; font-weight: 700; font-size: 18px;
+    padding: 6px 0;
+  }
+  .timeline .dot {
+    position: relative; justify-self: center; width: 13px;
+  }
+  .timeline .dot::before { /* the vertical thread */
+    content: ""; position: absolute; left: 6px; top: 0; bottom: 0; width: 1px; background: var(--line);
+  }
+  .timeline li:first-child .dot::before { top: 50%; }
+  .timeline li:last-child  .dot::before { bottom: 50%; }
+  .timeline .dot::after {  /* the bead */
+    content: ""; position: absolute; left: 3px; top: 50%; width: 7px; height: 7px; margin-top: -3.5px;
+    border-radius: 50%; background: var(--cream); border: 1px solid var(--ink);
+  }
+  .timeline span:last-child { padding: 6px 0; }
+
+  /* ---------- RSVP ---------- */
+  .rsvp h2 { margin-bottom: 28px; }
+
+  /* ---------- RSVP form ---------- */
+  [hidden] { display: none !important; }
+  /* the form sits on its own soft card so it reads clearly as "fill this in" */
+  .rsvp-card {
+    max-width: 580px; margin: 0 auto;
+    padding: 48px 56px 40px;
+    background: rgba(255,255,255,.25);
+    border: 1px solid rgba(126,140,162,.38);
+    border-radius: 28px;
+    /* a second, finer line just inside the edge – like a printed invitation card */
+    outline: 1px solid rgba(126,140,162,.16); outline-offset: -8px;
+  }
+  .rsvp-card .rsvp-thanks { padding: 12px 0; }
+  .rsvp-form { max-width: 460px; margin: 0 auto; display: grid; gap: 34px; text-align: center; }
+  .field { display: grid; gap: 10px; border: 0; min-width: 0; padding: 0; margin: 0; }
+  .field-label {
+    display: block; padding: 0; margin: 0 auto;
+    font-style: italic; font-weight: 700; color: var(--ink); font-size: 20px; line-height: 1.2;
+    letter-spacing: -0.12em; word-spacing: 0.12em;
+  }
+  html:lang(bg) .field-label { letter-spacing: -0.04em; word-spacing: 0.06em; }
+  .hint { font-size: 14px; margin-top: -6px; }
+  /* legends sit outside the grid gap, so space them explicitly */
+  legend.field-label { margin-bottom: 12px; }
+  legend.field-label + .hint { margin-top: -6px; margin-bottom: 4px; }
+  .input {
+    width: 100%; font: inherit; color: var(--ink); text-align: center;
+    background: transparent; border: 0; border-bottom: 1px solid var(--line); border-radius: 0;
+    padding: 8px 4px 9px; transition: border-color .3s;
+  }
+  .input:focus { outline: none; border-bottom-color: var(--ink); }
+  .input::placeholder { color: var(--text); opacity: .55; font-style: italic; }
+  textarea.input {
+    min-height: 96px; resize: vertical; text-align: left; line-height: 1.5;
+    border: 1px solid var(--line); border-radius: 16px; padding: 12px 16px;
+    background: rgba(255,255,255,.4);
+  }
+  textarea.input:focus { border-color: var(--ink); }
+  /* pill choices (attending, dietary) */
+  .choices { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+  .choice { position: relative; }
+  .choice input { position: absolute; opacity: 0; inset: 0; margin: 0; pointer-events: none; }
+  .choice span {
+    display: inline-block; cursor: pointer; color: var(--ink);
+    border: 1px solid var(--line); border-radius: 999px; padding: 9px 22px 10px;
+    transition: background .45s, color .45s, border-color .45s;
+  }
+  .choice:hover span { border-color: var(--ink); }
+  .choice input:checked + span { background: var(--ink); border-color: var(--ink); color: var(--white); }
+  .choice input:focus-visible + span { outline: 2px solid var(--ink); outline-offset: 3px; }
+  /* guest counter */
+  .stepper { display: inline-flex; align-items: center; justify-content: center; gap: 22px; }
+  .stepper button {
+    width: 40px; height: 40px; border-radius: 50%; cursor: pointer;
+    border: 1px solid var(--ink); background: transparent; color: var(--ink);
+    font: 400 22px/1 Georgia, serif; transition: background .4s, color .4s;
+  }
+  .stepper button:hover:not(:disabled) { background: var(--ink); color: var(--white); }
+  .stepper button:disabled { opacity: .3; cursor: default; }
+  .stepper output { min-width: 1.4ch; font-style: italic; font-weight: 700; font-size: 28px; color: var(--ink); }
+  .guest-names { display: grid; gap: 12px; }
+  .field .field { margin-top: 20px; }   /* follow-up questions get a little breathing room */
+  /* fields that appear depending on answers drift in softly */
+  @keyframes soft-in { from { opacity: 0; translate: 0 10px; } to { opacity: 1; translate: 0 0; } }
+  .conditional:not([hidden]), .guest-names .input { animation: soft-in .7s cubic-bezier(.22,.61,.36,1); }
+  /* a question left unanswered gets a soft rose underline/outline */
+  .field.missing > .input, .field.missing > .guest-names .input:placeholder-shown,
+  .field.missing > textarea.input { border-color: #C9959B; }
+  .field.missing > .choices .choice span { border-color: #C9959B; }
+  .field.missing > .field-label::after { content: " *"; color: #C9959B; }
+  .form-status { min-height: 1.4em; font-style: italic; font-size: 15px; margin-top: -14px; }
+  .form-status.error { color: #A0626A; }
+  .rsvp-form .btn { justify-self: center; cursor: pointer; font-family: inherit; }
+  .rsvp-form .btn:disabled { opacity: .6; cursor: default; }
+  .rsvp-thanks { max-width: 460px; margin: 0 auto; font-size: 20px; color: var(--ink); font-style: italic; }
+  .rsvp-thanks:not([hidden]) { animation: soft-in 1.2s cubic-bezier(.22,.61,.36,1); }
+
+  /* ---------- Footer ---------- */
+  .footer {
+    position: relative; min-height: 100vh; min-height: 100svh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 80px 16px; text-align: center;
+    color: var(--white); overflow: hidden;
+  }
+  .footer-bg {
+    position: absolute; inset: 0; z-index: -1;
+    background: #CFE0E6 url("images/footer-painting.webp") center / cover no-repeat;
+  }
+  /* a soft, misty deepening behind the centre so the white writing reads on the pale painting */
+  .footer-bg::after {
+    content: ""; position: absolute; inset: 0;
+    background: radial-gradient(ellipse 55% 45% at 50% 50%, rgba(92,116,146,.30), rgba(92,116,146,0) 75%);
+  }
+  .signature { width: 230px; height: auto; }
+  .footer p {
+    font-style: italic; font-weight: 500; font-size: 24px; margin-top: 14px;
+  }
+  /* countdown: lighter still, quietly ticking under the closing line */
+  .countdown {
+    margin-top: 8px; max-width: 34ch;
+    font-style: italic; font-weight: 400; font-size: 17px; line-height: 1.5;
+    letter-spacing: -0.02em; opacity: .92;
+    font-variant-numeric: lining-nums tabular-nums;   /* digits don't jiggle as they change */
+    text-wrap: balance;
+  }
+  .countdown .num { font-weight: 500; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 960px) {
+    /* frame on its own row, the two polaroids side by side underneath – never one stranded */
+    .std { display: grid; grid-template-columns: 1fr 1fr; column-gap: 24px; row-gap: 28px; }
+    /* roomier Save the Date text so it fills the ribbon (desktop keeps its spacing) */
+    .frame-text h2 { margin-bottom: 7cqw; }
+    .frame-text p + p { margin-top: 5cqw; }
+    .frame-text .btn { margin-top: 9cqw; }
+    .frame { grid-column: 1 / -1; justify-self: center; }
+    .polaroid { width: 130px; }
+    .polaroid.left  { grid-row: 2; justify-self: end; }
+    .polaroid.right { grid-row: 2; justify-self: start; }
+  }
+  @media (max-width: 560px) {
+    :root { --after-title: 28px; --between-blocks: 32px; }
+    body { font-size: 16px; }
+    .section h2 { font-size: 34px; }
+    .illus { height: calc(var(--h) * .82); }
+    /* Ribbon frame grows past the screen edges so it never covers the text */
+    .std { overflow-x: clip; }
+    .frame { width: 140vw; max-width: none; }
+    /* the frame overflows the screen here, so size text to the screen (vw), not the frame */
+    .frame-text { padding: 14% calc(20vw + 22px) 4%; font-size: 4.4vw; }
+    .frame-text h2 { font-size: 8.2vw; margin-bottom: 7vw; }
+    html:lang(bg) .frame-text { font-size: 4.1vw; }
+    html:lang(bg) .frame-text h2 { font-size: 6.2vw; }
+    .frame-text p + p { margin-top: 5vw; }
+    .frame-text .btn { font-size: 4.6vw; margin-top: 9vw; padding: 2.6vw 6vw 3vw; }
+    .btn { font-size: 20px; padding: 11px 26px 13px; }
+    .polaroid { width: 130px; }
+    .rsvp-card { padding: 36px 22px 30px; border-radius: 22px; }
+  }
+
+  /* ---------- Dreamy motion ---------- */
+  /* Content only hides when JS is running, so the page still works without it. */
+  .js [data-reveal] > *:not(.hero-bg):not(.footer-bg) {
+    opacity: 0;
+    translate: 0 24px;
+    filter: blur(8px);
+    transition:
+      opacity 1.6s cubic-bezier(.22,.61,.36,1),
+      translate 1.8s cubic-bezier(.22,.61,.36,1),
+      filter 1.6s cubic-bezier(.22,.61,.36,1);
+    transition-delay: var(--d, 0s);
+  }
+  .js [data-reveal].in > *:not(.hero-bg):not(.footer-bg) {
+    opacity: 1; translate: 0 0; filter: none;   /* "none" (not blur(0)) so Safari drops the effect once settled */
+  }
+  /* The ribbon frame is huge on phones, and Safari won't draw a big image while it's
+     see-through, so fading the frame itself made it pop in all at once. Instead the frame
+     stays fully drawn and a cream veil on top of it fades away (and the frame drifts up). */
+  .js [data-reveal] > .frame:not(.hero-bg):not(.footer-bg) {
+    opacity: 1; filter: none;
+    transition: translate 2.4s cubic-bezier(.22,.61,.36,1);
+    transition-delay: var(--d, 0s);
+  }
+  .frame::after {
+    content: ""; position: absolute; inset: -2px; pointer-events: none;
+    background: var(--cream); opacity: 0;
+  }
+  .js [data-reveal] .frame::after {
+    opacity: 1;
+    transition: opacity 2.2s cubic-bezier(.4,0,.2,1);
+    transition-delay: var(--d, 0s);
+  }
+  .js [data-reveal].in .frame::after { opacity: 0; }
+  /* paintings slowly settle, like a soft camera drift */
+  .hero-bg, .footer-bg { transform: scale(1.08); transition: transform 14s cubic-bezier(.22,.61,.36,1); }
+  .in > .hero-bg, .in > .footer-bg { transform: scale(1); }
+  @keyframes float {
+    0%   { transform: translate(0, 0) rotate(-4deg); }
+    25%  { transform: translate(8px, -18px) rotate(0deg); }
+    50%  { transform: translate(0, -32px) rotate(4deg); }
+    75%  { transform: translate(-8px, -14px) rotate(0deg); }
+    100% { transform: translate(0, 0) rotate(-4deg); }
+  }
+  .balloon { animation: float 6s ease-in-out infinite; }
+  @keyframes sway {
+    0%, 100% { transform: rotate(-5deg) scale(1); }
+    50%      { transform: rotate(5deg) scale(1.04); }
+  }
+  .bouquet { animation: sway 5s ease-in-out infinite; transform-origin: 50% 95%; }
+  @keyframes wiggle {
+    0%, 100% { transform: translateY(0) rotate(-6deg); }
+    50%      { transform: translateY(-12px) rotate(6deg); }
+  }
+  .envelope { animation: wiggle 3.5s ease-in-out infinite; }
+
+  /* language switch: words soften away and drift back in the other language */
+  html.lang-anim [data-i18n] {
+    transition: opacity .38s ease, filter .38s ease !important;
+    transition-delay: 0s !important;
+  }
+  html.lang-anim .input::placeholder { transition: opacity .38s ease; }
+  html.lang-anim .countdown { transition: opacity .38s ease, filter .38s ease !important; transition-delay: 0s !important; }
+  html.lang-out [data-i18n], html.lang-out .countdown { opacity: 0 !important; filter: blur(6px) !important; }
+  html.lang-out .input::placeholder { opacity: 0; }
+
+</style>
+</head>
+<body>
+
+<!-- ============ HERO ============ -->
+<header class="hero" data-reveal>
+  <div class="hero-bg" role="img" aria-label=""></div>
+  <h1 class="names" data-i18n="names">Sophie &amp; Dimitar</h1>
+  <p class="hero-date">14.08.27</p>
+  <nav class="lang" aria-label="Language">
+    <button type="button" data-lang="en" aria-pressed="true">English</button><span> / </span><button type="button" data-lang="bg" aria-pressed="false">български</button>
+  </nav>
+</header>
+
+<!-- ============ SAVE THE DATE ============ -->
+<section class="section std" data-reveal aria-labelledby="std-title">
+  <figure class="polaroid left"><img src="images/sophie.png" width="308" height="480" alt="Sophie as a child, holding up a video game"></figure>
+
+  <div class="frame">
+    <img src="images/ribbon-frame.webp" width="975" height="1301" alt="" aria-hidden="true">
+    <div class="frame-text">
+      <h2 id="std-title" data-i18n="std_title">Save the Date!</h2>
+      <p data-i18n="std_date">14th of August, 2027</p>
+      <p><a href="https://www.google.com/maps/search/?api=1&query=Hyatt+Regency+Pravets" target="_blank" rel="noopener" data-i18n="std_venue">Hyatt Regency, Pravets<br>Sofia, Bulgaria</a></p>
+      <p data-i18n="std_time">From 4pm ’til late</p>
+      <a class="btn" href="#rsvp" data-i18n="rsvp_short">R.S.V.P.</a>
+    </div>
+  </div>
+
+  <figure class="polaroid right"><img src="images/dimitar.png" width="308" height="480" alt="Dimitar as a child, buried in sand on the beach"></figure>
+</section>
+
+<div class="divider" aria-hidden="true"><span></span></div>
+
+<!-- ============ THE WEDDING DAY ============ -->
+<section class="section info" data-reveal aria-labelledby="day-title">
+  <div class="illus-slot"><img class="illus bouquet" src="images/flowers-yellow.png" width="507" height="518" style="--h:138px" alt=""></div>
+  <h2 id="day-title" data-i18n="day_title">The Wedding Day</h2>
+
+  <h3 data-i18n="itin_title">Itinerary</h3>
+  <ol class="timeline">
+    <li><time data-i18n="t1">4pm</time><span class="dot"></span><span data-i18n="e1">Welcome drinks</span></li>
+    <li><time data-i18n="t2">5pm</time><span class="dot"></span><span data-i18n="e2">Ceremony</span></li>
+    <li><time data-i18n="t3">5:30pm</time><span class="dot"></span><span data-i18n="e3">Pictures and greetings</span></li>
+    <li><time data-i18n="t4">6:45pm</time><span class="dot"></span><span data-i18n="e4">Food</span></li>
+  </ol>
+
+  <h3 data-i18n="dress_title">Dress code</h3>
+  <p data-i18n="dress_body">Black tie optional or formal. The wedding colours are pastel blue and yellow, but you don’t need to stick to a theme. Wear whatever makes you feel beautiful!</p>
+</section>
+
+<div class="divider" aria-hidden="true"><span></span></div>
+
+<!-- ============ TRAVEL ============ -->
+<section class="section info" data-reveal aria-labelledby="travel-title">
+  <div class="illus-slot"><img class="illus balloon" src="images/balloon.png" width="242" height="368" style="--h:158px" alt=""></div>
+  <h2 id="travel-title" data-i18n="travel_title">Travel</h2>
+
+  <h3 data-i18n="abroad_title">Arriving from abroad</h3>
+  <p data-i18n="abroad_1">For those travelling from outside the country, thank you so much for making the extra effort to join us on our special day. We appreciate it tremendously!</p>
+  <p data-i18n="abroad_2">Sofia Airport is the closest airport to the venue, which always has taxis to take you wherever you’re staying. <a href="#contacts">Contact Mitko</a> if you need special arrangements.</p>
+
+  <h3 data-i18n="acc_title">Accommodation</h3>
+  <p data-i18n="acc_1">We’ve secured preferential rates for those who want to stay at the Hyatt Regency, the wedding venue. Please click <a href="#" class="todo-link">this link</a> to book.</p>
+  <p data-i18n="acc_2">You’re also welcome to stay in nearby hotels if you wish. We recommend <a href="#" class="todo-link">The Hotel</a>, <a href="#" class="todo-link">Bulgarian Inn</a> or <a href="#" class="todo-link">Nice Place</a>.</p>
+
+  <h3 data-i18n="park_title">Parking</h3>
+  <p data-i18n="park_body">On-site parking is available.</p>
+</section>
+
+<div class="divider" aria-hidden="true"><span></span></div>
+
+<!-- ============ MISCELLANEOUS ============ -->
+<section class="section info" data-reveal aria-labelledby="misc-title">
+  <div class="illus-slot"><img class="illus bouquet" src="images/flowers-blue.png" width="638" height="509" style="--h:140px" alt=""></div>
+  <h2 id="misc-title" data-i18n="misc_title">Miscellaneous</h2>
+
+  <h3 data-i18n="gifts_title">Gifts</h3>
+  <p data-i18n="gifts_body">We live abroad, so we can’t take anything with us. Therefore, cash is much preferred. Please no flowers!</p>
+
+  <h3 id="contacts" data-i18n="q_title">Questions?</h3>
+  <p><span data-i18n="q_sophie">Sophie’s WhatsApp:</span> <a href="https://wa.me/447774006563" target="_blank" rel="noopener">+44&nbsp;7774&nbsp;006563</a><br>
+     <span data-i18n="q_mitko">Mitko’s WhatsApp:</span> <a href="https://wa.me/41762202169" target="_blank" rel="noopener">+41&nbsp;76&nbsp;220&nbsp;21&nbsp;69</a></p>
+
+  <h3 data-i18n="dayof_title">Day-of contact</h3>
+  <p><span data-i18n="dayof_body">Contact Venelina Harizanova via WhatsApp on</span> <a href="https://wa.me/359898377516" target="_blank" rel="noopener">+359&nbsp;89&nbsp;837&nbsp;7516</a></p>
+</section>
+
+<div class="divider" aria-hidden="true"><span></span></div>
+
+<!-- ============ RSVP ============ -->
+<section class="section rsvp" data-reveal id="rsvp" aria-labelledby="rsvp-title">
+  <div class="illus-slot"><img class="illus envelope" src="images/envelope.png" width="327" height="191" style="--h:96px" alt=""></div>
+  <h2 id="rsvp-title" data-i18n="rsvp_short">R.S.V.P.</h2>
+
+  <div class="rsvp-card">
+  <form class="rsvp-form" id="rsvp-form" novalidate>
+    <!-- 1. Name -->
+    <div class="field">
+      <label class="field-label" for="f-name" data-i18n="f_name">Your name</label>
+      <input class="input" id="f-name" name="name" type="text" autocomplete="name" required
+             placeholder="Full name" data-i18n-ph="ph_name">
+    </div>
+
+    <!-- 2. Attending -->
+    <fieldset class="field">
+      <legend class="field-label" data-i18n="f_attend">Will you be joining us?</legend>
+      <div class="choices">
+        <label class="choice"><input type="radio" name="attending" value="yes" required><span data-i18n="f_yes">Yes</span></label>
+        <label class="choice"><input type="radio" name="attending" value="no"><span data-i18n="f_no">No</span></label>
+      </div>
+    </fieldset>
+
+    <!-- 3. Email -->
+    <div class="field">
+      <label class="field-label" for="f-email" data-i18n="f_email">Email</label>
+      <input class="input" id="f-email" name="email" type="email" autocomplete="email" required
+             placeholder="you@example.com">
+    </div>
+
+    <!-- 4 + 5. Guests (only if attending) -->
+    <div class="field conditional" id="guests-block" hidden>
+      <span class="field-label" id="guests-label" data-i18n="f_guests">How many guests are you bringing?</span>
+      <p class="hint" data-i18n="f_guests_hint">Not counting yourself</p>
+      <div class="stepper" role="group" aria-labelledby="guests-label">
+        <button type="button" id="guests-minus" aria-label="Fewer guests">−</button>
+        <output id="guests-count" aria-live="polite">0</output>
+        <button type="button" id="guests-plus" aria-label="More guests">+</button>
+      </div>
+      <input type="hidden" name="guests_count" id="guests-count-input" value="0">
+      <div class="field conditional" id="guest-names-block" hidden>
+        <span class="field-label" data-i18n="f_guest_names">Their names</span>
+        <div class="guest-names" id="guest-names"></div>
+      </div>
+    </div>
+
+    <!-- 6. Dietary (only if attending) -->
+    <fieldset class="field conditional" id="diet-block" hidden>
+      <legend class="field-label" data-i18n="f_diet">Any allergies or dietary preferences?</legend>
+      <p class="hint" data-i18n="f_diet_hint">For you or anyone in your party</p>
+      <div class="choices">
+        <label class="choice"><input type="radio" name="dietary" value="yes"><span data-i18n="f_diet_yes">Yes</span></label>
+        <label class="choice"><input type="radio" name="dietary" value="no"><span data-i18n="f_diet_no">No</span></label>
+      </div>
+      <div class="field conditional" id="diet-details-block" hidden>
+        <label class="field-label" for="f-diet" data-i18n="f_diet_details">Please tell us more</label>
+        <textarea class="input" id="f-diet" name="dietary_details" rows="3"
+                  placeholder="e.g. nut allergy, vegetarian…" data-i18n-ph="ph_diet"></textarea>
+      </div>
+    </fieldset>
+
+    <!-- 7. Message -->
+    <div class="field">
+      <label class="field-label" for="f-msg" data-i18n="f_msg">A message for the couple</label>
+      <p class="hint" data-i18n="f_optional">Optional</p>
+      <textarea class="input" id="f-msg" name="message" rows="4"
+                placeholder="Write something lovely…" data-i18n-ph="ph_msg"></textarea>
+    </div>
+
+    <!-- spam trap: hidden from people, bots fill it in -->
+    <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true"
+           style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+
+    <button class="btn" type="submit" id="rsvp-submit" data-i18n="rsvp_btn">Send R.S.V.P.</button>
+    <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+  </form>
+
+  <p class="rsvp-thanks" id="rsvp-thanks" hidden tabindex="-1"></p>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer" data-reveal>
+  <div class="footer-bg"></div>
+  <img class="signature" src="images/signatures.png" width="496" height="371" alt="Sophie and Dimitar's signatures">
+  <p data-i18n="footer">See you on the 14th of August!</p>
+  <div class="countdown" id="countdown"></div>
+</footer>
+
+<script>
+  // DRAFT Bulgarian translations – please have a native speaker check these.
+  const bg = {
+    names: "Софи &amp; Димитър",
+    std_title: "Запазете датата!",
+    std_date: "14 август 2027 г.",
+    std_venue: "Хаят Риджънси, Правец<br>София, България",
+    std_time: "От 16:00 ч. до късно",
+    rsvp_short: "Потвърдете",
+    day_title: "Сватбеният ден",
+    itin_title: "Програма",
+    t1: "16:00", e1: "Коктейл за добре дошли",
+    t2: "17:00", e2: "Церемония",
+    t3: "17:30", e3: "Снимки и поздравления",
+    t4: "18:45", e4: "Вечеря",
+    dress_title: "Облекло",
+    dress_body: "Официално облекло. Цветовете на сватбата са пастелно синьо и жълто, но не е задължително да се придържате към тях. Облечете това, в което се чувствате красиви!",
+    travel_title: "Пътуване",
+    abroad_title: "Пристигане от чужбина",
+    abroad_1: "На всички, които пътуват от чужбина – огромно благодарим, че полагате допълнителни усилия, за да бъдете с нас в този специален ден. Наистина го оценяваме!",
+    abroad_2: "Летище София е най-близкото летище до мястото на сватбата и там винаги има таксита, които да ви откарат до мястото, където сте отседнали. <a href=\"#contacts\">Свържете се с Митко</a>, ако имате нужда от специална уредба.",
+    acc_title: "Настаняване",
+    acc_1: "Договорили сме преференциални цени за гостите, които желаят да отседнат в хотел Хаят Риджънси, където е сватбата. Моля, <a href=\"#\" class=\"todo-link\">кликнете тук</a>, за да резервирате.",
+    acc_2: "Добре дошли сте да отседнете и в близки хотели. Препоръчваме <a href=\"#\" class=\"todo-link\">The Hotel</a>, <a href=\"#\" class=\"todo-link\">Bulgarian Inn</a> или <a href=\"#\" class=\"todo-link\">Nice Place</a>.",
+    misc_title: "Други",
+    gifts_title: "Подаръци",
+    gifts_body: "Живеем в чужбина и не можем да вземем много с нас, затова предпочитаме парични подаръци. Моля, без цветя!",
+    q_title: "Въпроси?",
+    q_sophie: "WhatsApp на Софи:",
+    q_mitko: "WhatsApp на Митко:",
+    park_title: "Паркиране",
+    park_body: "На място има паркинг.",
+    dayof_title: "Контакт в деня на сватбата",
+    dayof_body: "Свържете се с Венелина Харизанова в WhatsApp на",
+    rsvp_btn: "Изпратете отговора",
+    f_name: "Вашето име",
+    f_attend: "Ще бъдете ли с нас?",
+    f_yes: "Да",
+    f_no: "Не",
+    f_email: "Имейл",
+    f_guests: "Колко гости ще доведете?",
+    f_guests_hint: "Без вас",
+    f_guest_names: "Имената им",
+    f_diet: "Имате ли алергии или хранителни предпочитания?",
+    f_diet_hint: "За вас или някой от гостите ви",
+    f_diet_no: "Не",
+    f_diet_yes: "Да",
+    f_diet_details: "Моля, разкажете ни повече",
+    f_msg: "Послание за младоженците",
+    f_optional: "По желание",
+    ph_name: "Име и фамилия",
+    ph_diet: "напр. алергия към ядки, вегетарианец…",
+    ph_msg: "Напишете нещо мило…",
+    footer: "До скоро на 14 август!"
+  };
+
+  // Text the form creates on the fly (both languages)
+  const ui = {
+    en: {
+      guest: n => `Guest ${n} – full name`,
+      sending: "Sending…",
+      thanksYes: name => `Thank you, ${name}! We can’t wait to celebrate with you.`,
+      thanksNo: name => `Thank you, ${name}. We’ll miss you – and we’ll raise a glass to you!`,
+      missing: "Please fill in the highlighted questions.",
+      error: "Something went wrong – please try again, or message Sophie or Mitko on WhatsApp.",
+      notConnected: "The R.S.V.P. form isn’t connected yet – please message Sophie or Mitko on WhatsApp."
+    },
+    bg: {
+      guest: n => `Гост ${n} – име и фамилия`,
+      sending: "Изпращане…",
+      thanksYes: name => `Благодарим ви, ${name}! Нямаме търпение да празнуваме заедно.`,
+      thanksNo: name => `Благодарим ви, ${name}. Ще ни липсвате – ще вдигнем тост за вас!`,
+      missing: "Моля, попълнете отбелязаните въпроси.",
+      error: "Нещо се обърка – моля, опитайте отново или пишете на Софи или Митко в WhatsApp.",
+      notConnected: "Формулярът все още не е свързан – моля, пишете на Софи или Митко в WhatsApp."
+    }
+  };
+  const lang = () => (document.documentElement.lang === "bg" ? "bg" : "en");
+
+  const nodes = document.querySelectorAll("[data-i18n]");
+  const phNodes = document.querySelectorAll("[data-i18n-ph]");
+  const en = {};
+  nodes.forEach(n => { en[n.dataset.i18n] = n.innerHTML; });
+  phNodes.forEach(n => { en[n.dataset.i18nPh] = n.placeholder; });
+
+  function setLang(lang) {
+    const dict = lang === "bg" ? bg : en;
+    nodes.forEach(n => { const v = dict[n.dataset.i18n]; if (v) n.innerHTML = v; });
+    phNodes.forEach(n => { const v = dict[n.dataset.i18nPh]; if (v) n.placeholder = v; });
+    document.documentElement.lang = lang;
+    if (window.refreshGuestPlaceholders) window.refreshGuestPlaceholders();
+    if (window.refreshCountdown) window.refreshCountdown();
+    document.querySelectorAll(".lang button").forEach(b =>
+      b.setAttribute("aria-pressed", String(b.dataset.lang === lang)));
+    try { localStorage.setItem("lang", lang); } catch (e) {}
+  }
+  // Switching language: text blurs and fades out, swaps while hidden, then drifts back into focus
+  let swapping = false;
+  function switchLang(to) {
+    const root = document.documentElement;
+    if (to === root.lang || swapping) return;
+    swapping = true;
+    root.classList.add("lang-anim", "lang-out");
+    setTimeout(() => {
+      setLang(to);
+      requestAnimationFrame(() => requestAnimationFrame(() => root.classList.remove("lang-out")));
+      setTimeout(() => { root.classList.remove("lang-anim"); swapping = false; }, 650);
+    }, 380);
+  }
+  document.querySelectorAll(".lang button").forEach(b =>
+    b.addEventListener("click", () => switchLang(b.dataset.lang)));
+  try { if (localStorage.getItem("lang") === "bg") setLang("bg"); } catch (e) {}
+
+  // ---- R.S.V.P. form ----
+  // Where replies are sent: your Google Sheet's Apps Script "Web app URL"
+  // (see rsvp-google-sheet.gs). Paste it between the quotes – it ends in /exec, e.g.
+  // "https://script.google.com/macros/s/AKfycb…/exec". Until then the form explains it isn't connected yet.
+  const RSVP_ENDPOINT = "https://script.google.com/macros/s/AKfycbxe09TcKFmGoIdQXgWd6Ce4fjQP7iqSfhzDCbHGx_Yn_8wNgaN6T161XGJHXEEv9owx/exec";
+  const MAX_GUESTS = 6;
+
+  (function rsvpForm() {
+    const form = document.getElementById("rsvp-form");
+    const $ = id => document.getElementById(id);
+    const guestsBlock = $("guests-block"), dietBlock = $("diet-block");
+    const dietDetails = $("diet-details-block"), dietText = $("f-diet");
+    const namesBlock = $("guest-names-block"), namesWrap = $("guest-names");
+    const countOut = $("guests-count"), countInput = $("guests-count-input");
+    const minus = $("guests-minus"), plus = $("guests-plus");
+    const status = $("form-status"), submit = $("rsvp-submit"), thanks = $("rsvp-thanks");
+    let count = 0;
+
+    // Show guests + dietary questions only for people who are coming
+    form.addEventListener("change", e => {
+      if (e.target.name === "attending") {
+        const coming = e.target.value === "yes";
+        guestsBlock.hidden = !coming;
+        dietBlock.hidden = !coming;
+      }
+      if (e.target.name === "dietary") {
+        dietDetails.hidden = e.target.value !== "yes";
+        if (!dietDetails.hidden) dietText.focus({ preventScroll: true });
+      }
+      clearMark(e.target);
+    });
+    form.addEventListener("input", e => clearMark(e.target));
+
+    // Guest counter: one name field per guest
+    function setCount(n) {
+      const names = [...namesWrap.querySelectorAll("input")].map(i => i.value);
+      count = Math.max(0, Math.min(MAX_GUESTS, n));
+      countOut.textContent = count; countInput.value = count;
+      minus.disabled = count === 0; plus.disabled = count === MAX_GUESTS;
+      namesWrap.innerHTML = "";
+      for (let i = 1; i <= count; i++) {
+        const inp = document.createElement("input");
+        inp.className = "input"; inp.type = "text"; inp.name = `guest_${i}`;
+        inp.autocomplete = "off"; inp.required = true;
+        inp.value = names[i - 1] || "";
+        inp.placeholder = ui[lang()].guest(i);
+        inp.setAttribute("aria-label", ui[lang()].guest(i));
+        namesWrap.appendChild(inp);
+      }
+      namesBlock.hidden = count === 0;
+    }
+    window.refreshGuestPlaceholders = () =>
+      namesWrap.querySelectorAll("input").forEach((inp, i) => {
+        inp.placeholder = ui[lang()].guest(i + 1);
+        inp.setAttribute("aria-label", ui[lang()].guest(i + 1));
+      });
+    minus.addEventListener("click", () => setCount(count - 1));
+    plus.addEventListener("click", () => { setCount(count + 1); namesWrap.lastElementChild?.focus({ preventScroll: true }); });
+    setCount(0);
+
+    // Validation: highlight anything missing
+    function clearMark(el) { const f = el.closest && el.closest(".field.missing"); if (f) f.classList.remove("missing"); }
+    function validate() {
+      let firstBad = null;
+      const check = (ok, el) => { if (!ok) { el.closest(".field").classList.add("missing"); firstBad = firstBad || el; } };
+      const name = $("f-name"), email = $("f-email");
+      check(name.value.trim() !== "", name);
+      const attending = form.querySelector("input[name=attending]:checked");
+      check(!!attending, form.querySelector("input[name=attending]"));
+      check(email.validity.valid && email.value.trim() !== "", email);
+      if (attending && attending.value === "yes") {
+        namesWrap.querySelectorAll("input").forEach(inp => check(inp.value.trim() !== "", inp));
+        const diet = form.querySelector("input[name=dietary]:checked");
+        check(!!diet, form.querySelector("input[name=dietary]"));
+        if (diet && diet.value === "yes") check(dietText.value.trim() !== "", dietText);
+      }
+      return firstBad;
+    }
+
+    form.addEventListener("submit", async e => {
+      e.preventDefault();
+      status.className = "form-status"; status.textContent = "";
+      const bad = validate();
+      if (bad) {
+        status.className = "form-status error"; status.textContent = ui[lang()].missing;
+        bad.closest(".field").scrollIntoView({ behavior: "smooth", block: "center" });
+        if (bad.type !== "radio") bad.focus({ preventScroll: true });
+        return;
+      }
+
+      // Build one tidy reply
+      const fd = new FormData(form);
+      const attending = fd.get("attending") === "yes";
+      const guestNames = [...namesWrap.querySelectorAll("input")].map(i => i.value.trim());
+      const reply = {
+        name: fd.get("name").trim(),
+        attending: attending ? "Yes" : "No",
+        email: fd.get("email").trim(),
+        guests_count: attending ? count : 0,
+        guest_names: attending ? guestNames.join(", ") : "",
+        dietary: attending ? (fd.get("dietary") === "yes" ? "Yes" : "No") : "",
+        dietary_details: attending && fd.get("dietary") === "yes" ? fd.get("dietary_details").trim() : "",
+        message: (fd.get("message") || "").trim(),
+        language: lang() === "bg" ? "Bulgarian" : "English",
+        _gotcha: fd.get("_gotcha") || ""
+      };
+
+      if (!RSVP_ENDPOINT) {
+        console.info("R.S.V.P. (not sent – no RSVP_ENDPOINT set):", reply);
+        status.className = "form-status error"; status.textContent = ui[lang()].notConnected;
+        return;
+      }
+
+      submit.disabled = true; const label = submit.innerHTML; submit.textContent = ui[lang()].sending;
+      try {
+        // Sent as plain text: Google Apps Script only accepts cross-site posts in this simple form.
+        const res = await fetch(RSVP_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify(reply)
+        });
+        if (!res.ok) throw new Error(res.status);
+        const result = await res.json().catch(() => ({}));
+        if (result.ok === false) throw new Error(result.error || "rejected");
+        form.hidden = true;
+        thanks.textContent = (attending ? ui[lang()].thanksYes : ui[lang()].thanksNo)(reply.name.split(" ")[0]);
+        thanks.hidden = false; thanks.focus({ preventScroll: true });
+        document.getElementById("rsvp").scrollIntoView({ behavior: "smooth", block: "center" });
+      } catch (err) {
+        status.className = "form-status error"; status.textContent = ui[lang()].error;
+      } finally {
+        submit.disabled = false; submit.innerHTML = label;
+      }
+    });
+  })();
+
+  // ---- In-page links (R.S.V.P. button, "Contact Mitko"): glide smoothly to the spot ----
+  // Listens on the whole page, because switching language rebuilds some links.
+  document.addEventListener("click", e => {
+    const link = e.target.closest('a[href^="#"]');
+    const id = link && link.getAttribute("href").slice(1);
+    const target = id && document.getElementById(id);
+    if (!target) return;
+    e.preventDefault();
+    const sec = target.closest("[data-reveal]");
+    if (sec) sec.classList.add("in");              // start its fade-in now, so it's there when you land
+    target.scrollIntoView({ behavior: "smooth", block: id === "rsvp" ? "start" : "center" });
+  });
+
+  // ---- Countdown to the wedding: 4pm (welcome drinks), Bulgarian summer time ----
+  (function countdown() {
+    const WEDDING = new Date("2027-08-14T16:00:00+03:00").getTime();
+    const el = document.getElementById("countdown");
+    const words = {
+      en: { d: ["day", "days"], h: ["hour", "hours"], m: ["minute", "minutes"], s: ["second", "seconds"],
+            today: "Today’s the day!", after: "Thank you for celebrating with us ♡" },
+      bg: { d: ["ден", "дни"], h: ["час", "часа"], m: ["минута", "минути"], s: ["секунда", "секунди"],
+            today: "Днес е денят!", after: "Благодарим ви, че празнувахте с нас ♡" }
+    };
+    function render() {
+      const w = words[lang()];
+      const diff = WEDDING - Date.now();
+      if (diff <= 0) {
+        // on the day itself, then a thank-you afterwards
+        el.textContent = diff > -12 * 3600e3 ? w.today : w.after;
+        return;
+      }
+      const s = Math.floor(diff / 1000);
+      const parts = [
+        [Math.floor(s / 86400), w.d], [Math.floor(s / 3600) % 24, w.h],
+        [Math.floor(s / 60) % 60, w.m], [s % 60, w.s]
+      ];
+      el.innerHTML = parts
+        .map(([n, [one, many]]) => `<span class="num">${n}</span> ${n === 1 ? one : many}`)
+        .join(", ");
+    }
+    render();
+    setInterval(render, 1000);
+    window.refreshCountdown = render;
+  })();
+
+  // ---- Dreamy fade-in: each section drifts into focus as it scrolls into view ----
+  const revealEls = document.querySelectorAll("[data-reveal]");
+  revealEls.forEach(sec => {
+    [...sec.children]
+      .filter(c => !c.classList.contains("hero-bg") && !c.classList.contains("footer-bg"))
+      .forEach((c, i) => c.style.setProperty("--d", (0.15 + i * 0.18) + "s"));
+  });
+  // Wait (briefly) for a section's pictures to arrive, so nothing pops in half-way through its fade.
+  function reveal(sec) {
+    const imgs = [...sec.querySelectorAll("img")].map(img =>
+      img.decode ? img.decode().catch(() => {}) : Promise.resolve());
+    const giveUp = new Promise(r => setTimeout(r, 1500));   // slow connection: fade in anyway
+    Promise.race([Promise.all(imgs), giveUp]).then(() => sec.classList.add("in"));
+  }
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        io.unobserve(e.target);
+        reveal(e.target);
+      });
+    }, { threshold: 0.15, rootMargin: "0px 0px -8% 0px" });
+    revealEls.forEach(el => io.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add("in"));
+  }
+</script>
+</body>
+</html>
