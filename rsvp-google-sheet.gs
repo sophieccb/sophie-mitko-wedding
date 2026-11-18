@@ -16,7 +16,7 @@
 // ---- Settings you can change ----
 const SEND_CONFIRMATION = true;              // set to false to stop confirmation emails
 const SENDER_NAME = "Sophie & Dimitar";      // the "from" name guests see
-const SITE_URL = "";                         // optional: your website address, shown as a link in the email
+const SITE_URL = "https://sophieccb.github.io/sophie-mitko-wedding/";                         // optional: your website address, shown as a link in the email
 
 const SHEET_NAME = "RSVPs";
 const HEADERS = [
