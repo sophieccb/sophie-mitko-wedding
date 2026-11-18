@@ -21,7 +21,7 @@ const SITE_URL = "";                         // optional: your website address, 
 const SHEET_NAME = "RSVPs";
 const HEADERS = [
   "Submitted", "Name", "Attending", "Email", "Guests",
-  "Guest names", "Dietary", "Dietary details", "Message", "Language", "Confirmation email"
+  "Guest names", "Dietary", "Dietary details", "Message", "Language", "Confirmation email", "Main course"
 ];
 
 function doPost(e) {
@@ -56,7 +56,8 @@ function doPost(e) {
       clean_(data.dietary_details),
       clean_(data.message),
       clean_(data.language),
-      emailStatus
+      emailStatus,
+      clean_(data.meals)
     ]);
     return json({ ok: true });
   } catch (err) {
@@ -83,7 +84,7 @@ const TEXT = {
     no: "Thank you for letting us know. We’ll miss you – and we’ll raise a glass to you on the day!",
     summary: "Here’s what you told us:",
     attending: "Attending", yesWord: "Yes", noWord: "No",
-    guests: "Guests", guestNames: "Guest names", dietary: "Dietary needs", message: "Your message",
+    guests: "Guests", guestNames: "Guest names", meals: "Main course", dietary: "Allergies", message: "Your message",
     none: "None",
     change: "If anything changes, just reply to this email or message Sophie or Mitko on WhatsApp.",
     site: "Wedding website",
@@ -97,7 +98,7 @@ const TEXT = {
     no: "Благодарим ви, че ни уведомихте. Ще ни липсвате – ще вдигнем тост за вас!",
     summary: "Ето какво ни написахте:",
     attending: "Присъствие", yesWord: "Да", noWord: "Не",
-    guests: "Гости", guestNames: "Имена на гостите", dietary: "Хранителни нужди", message: "Вашето послание",
+    guests: "Гости", guestNames: "Имена на гостите", meals: "Основно ястие", dietary: "Алергии", message: "Вашето послание",
     none: "Няма",
     change: "Ако нещо се промени, просто отговорете на този имейл или пишете на Софи или Митко в WhatsApp.",
     site: "Сватбен сайт",
@@ -118,6 +119,7 @@ function sendConfirmation_(data) {
   if (coming) {
     rows.push([t.guests, String(Number(data.guests_count) || 0)]);
     if (data.guest_names) rows.push([t.guestNames, data.guest_names]);
+    if (data.meals) rows.push([t.meals, data.language === "Bulgarian" ? String(data.meals).replace(/Meat/g, "Месо").replace(/Fish/g, "Риба").replace(/Vegetarian/g, "Вегетарианско") : data.meals]);
     rows.push([t.dietary, data.dietary === "Yes" ? (data.dietary_details || t.yesWord) : t.none]);
   }
   if (data.message) rows.push([t.message, data.message]);
@@ -176,9 +178,10 @@ function getSheet_() {
     sheet.appendRow(HEADERS);
     sheet.setFrozenRows(1);
     sheet.getRange(1, 1, 1, HEADERS.length).setFontWeight("bold");
-  } else if (sheet.getRange(1, HEADERS.length).getValue() === "") {
-    // sheet created by the earlier version: add the new "Confirmation email" column header
-    sheet.getRange(1, HEADERS.length).setValue(HEADERS[HEADERS.length - 1]).setFontWeight("bold");
+  } else {
+    // sheet created by an earlier version: add any newer column headers (e.g. "Main course")
+    const top = sheet.getRange(1, 1, 1, HEADERS.length).getValues()[0];
+    HEADERS.forEach((h, i) => { if (top[i] === "") sheet.getRange(1, i + 1).setValue(h).setFontWeight("bold"); });
   }
   return sheet;
 }

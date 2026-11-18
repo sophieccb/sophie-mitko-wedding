@@ -295,6 +295,11 @@
   .stepper button:disabled { opacity: .3; cursor: default; }
   .stepper output { min-width: 1.4ch; font-style: italic; font-weight: 700; font-size: 28px; color: var(--ink); }
   .guest-names { display: grid; gap: 12px; }
+  /* main course: one row of pills per person */
+  .meal-who { font-style: italic; color: var(--ink); }
+  .field .meal-row { margin-top: 16px; gap: 8px; }
+  .meal-row .choices { gap: 8px; }
+  .meal-row .choice span { padding: 8px 18px 9px; }
   .field .field { margin-top: 20px; }   /* follow-up questions get a little breathing room */
   /* fields that appear depending on answers drift in softly */
   @keyframes soft-in { from { opacity: 0; translate: 0 10px; } to { opacity: 1; translate: 0 0; } }
@@ -575,9 +580,16 @@
       </div>
     </div>
 
-    <!-- 6. Dietary (only if attending) -->
+    <!-- 6. Main course (only if attending): one choice per person -->
+    <fieldset class="field conditional" id="meal-block" hidden>
+      <legend class="field-label" data-i18n="f_meal">Main course</legend>
+      <p class="hint" data-i18n="f_meal_hint">Please choose one for each person</p>
+      <div id="meal-rows"></div>
+    </fieldset>
+
+    <!-- 7. Allergies (only if attending) -->
     <fieldset class="field conditional" id="diet-block" hidden>
-      <legend class="field-label" data-i18n="f_diet">Any allergies or dietary preferences?</legend>
+      <legend class="field-label" data-i18n="f_diet">Any allergies or intolerances?</legend>
       <p class="hint" data-i18n="f_diet_hint">For you or anyone in your party</p>
       <div class="choices">
         <label class="choice"><input type="radio" name="dietary" value="yes"><span data-i18n="f_diet_yes">Yes</span></label>
@@ -586,11 +598,11 @@
       <div class="field conditional" id="diet-details-block" hidden>
         <label class="field-label" for="f-diet" data-i18n="f_diet_details">Please tell us more</label>
         <textarea class="input" id="f-diet" name="dietary_details" rows="3"
-                  placeholder="e.g. nut allergy, vegetarian…" data-i18n-ph="ph_diet"></textarea>
+                  placeholder="e.g. nuts, gluten, shellfish…" data-i18n-ph="ph_diet"></textarea>
       </div>
     </fieldset>
 
-    <!-- 7. Message -->
+    <!-- 8. Message -->
     <div class="field">
       <label class="field-label" for="f-msg" data-i18n="f_msg">A message for the couple</label>
       <p class="hint" data-i18n="f_optional">Optional</p>
@@ -661,7 +673,9 @@
     f_guests: "Колко гости ще доведете?",
     f_guests_hint: "Без вас",
     f_guest_names: "Имената им",
-    f_diet: "Имате ли алергии или хранителни предпочитания?",
+    f_meal: "Основно ястие",
+    f_meal_hint: "Моля, изберете за всеки човек",
+    f_diet: "Имате ли алергии или непоносимости?",
     f_diet_hint: "За вас или някой от гостите ви",
     f_diet_no: "Не",
     f_diet_yes: "Да",
@@ -669,7 +683,7 @@
     f_msg: "Послание за младоженците",
     f_optional: "По желание",
     ph_name: "Име и фамилия",
-    ph_diet: "напр. алергия към ядки, вегетарианец…",
+    ph_diet: "напр. ядки, глутен, ракообразни…",
     ph_msg: "Напишете нещо мило…",
     footer: "До скоро на 14 август!"
   };
@@ -678,6 +692,8 @@
   const ui = {
     en: {
       guest: n => `Guest ${n} – full name`,
+      you: "You", guestN: n => `Guest ${n}`,
+      meals: { meat: "Meat", fish: "Fish", veg: "Vegetarian" },
       sending: "Sending…",
       thanksYes: name => `Thank you, ${name}! We can’t wait to celebrate with you.`,
       thanksNo: name => `Thank you, ${name}. We’ll miss you – and we’ll raise a glass to you!`,
@@ -687,6 +703,8 @@
     },
     bg: {
       guest: n => `Гост ${n} – име и фамилия`,
+      you: "Вие", guestN: n => `Гост ${n}`,
+      meals: { meat: "Месо", fish: "Риба", veg: "Вегетарианско" },
       sending: "Изпращане…",
       thanksYes: name => `Благодарим ви, ${name}! Нямаме търпение да празнуваме заедно.`,
       thanksNo: name => `Благодарим ви, ${name}. Ще ни липсвате – ще вдигнем тост за вас!`,
@@ -742,6 +760,7 @@
     const form = document.getElementById("rsvp-form");
     const $ = id => document.getElementById(id);
     const guestsBlock = $("guests-block"), dietBlock = $("diet-block");
+    const mealBlock = $("meal-block"), mealRows = $("meal-rows");
     const dietDetails = $("diet-details-block"), dietText = $("f-diet");
     const namesBlock = $("guest-names-block"), namesWrap = $("guest-names");
     const countOut = $("guests-count"), countInput = $("guests-count-input");
@@ -755,6 +774,7 @@
         const coming = e.target.value === "yes";
         guestsBlock.hidden = !coming;
         dietBlock.hidden = !coming;
+        mealBlock.hidden = !coming;
       }
       if (e.target.name === "dietary") {
         dietDetails.hidden = e.target.value !== "yes";
@@ -762,7 +782,35 @@
       }
       clearMark(e.target);
     });
-    form.addEventListener("input", e => clearMark(e.target));
+    form.addEventListener("input", e => {
+      clearMark(e.target);
+      if (e.target.id === "f-name" || e.target.closest("#guest-names")) labelMeals();
+    });
+
+    // Main course: a row of Meat / Fish / Vegetarian for you and each guest
+    const MEALS = ["meat", "fish", "veg"];
+    function buildMeals() {
+      const picked = [...mealRows.querySelectorAll(".meal-row")].map(r => (r.querySelector("input:checked") || {}).value);
+      mealRows.innerHTML = "";
+      for (let i = 0; i <= count; i++) {
+        const row = document.createElement("div");
+        row.className = "field meal-row";
+        row.innerHTML = `<span class="meal-who"></span><div class="choices">` +
+          MEALS.map(m => `<label class="choice"><input type="radio" name="meal_${i}" value="${m}"><span data-meal="${m}"></span></label>`).join("") +
+          `</div>`;
+        if (picked[i]) row.querySelector(`input[value="${picked[i]}"]`).checked = true;
+        mealRows.appendChild(row);
+      }
+      labelMeals();
+    }
+    function labelMeals() {
+      const t = ui[lang()], guests = [...namesWrap.querySelectorAll("input")];
+      mealRows.querySelectorAll(".meal-row").forEach((row, i) => {
+        const who = i === 0 ? t.you : (guests[i - 1] && guests[i - 1].value.trim()) || t.guestN(i);
+        row.querySelector(".meal-who").textContent = who;
+        row.querySelectorAll("[data-meal]").forEach(sp => sp.textContent = t.meals[sp.dataset.meal]);
+      });
+    }
 
     // Guest counter: one name field per guest
     function setCount(n) {
@@ -781,12 +829,15 @@
         namesWrap.appendChild(inp);
       }
       namesBlock.hidden = count === 0;
+      buildMeals();
     }
-    window.refreshGuestPlaceholders = () =>
+    window.refreshGuestPlaceholders = () => {
       namesWrap.querySelectorAll("input").forEach((inp, i) => {
         inp.placeholder = ui[lang()].guest(i + 1);
         inp.setAttribute("aria-label", ui[lang()].guest(i + 1));
       });
+      labelMeals();
+    };
     minus.addEventListener("click", () => setCount(count - 1));
     plus.addEventListener("click", () => { setCount(count + 1); namesWrap.lastElementChild?.focus({ preventScroll: true }); });
     setCount(0);
@@ -803,6 +854,8 @@
       check(email.validity.valid && email.value.trim() !== "", email);
       if (attending && attending.value === "yes") {
         namesWrap.querySelectorAll("input").forEach(inp => check(inp.value.trim() !== "", inp));
+        mealRows.querySelectorAll(".meal-row").forEach(row =>
+          check(!!row.querySelector("input:checked"), row.querySelector("input")));
         const diet = form.querySelector("input[name=dietary]:checked");
         check(!!diet, form.querySelector("input[name=dietary]"));
         if (diet && diet.value === "yes") check(dietText.value.trim() !== "", dietText);
@@ -831,6 +884,8 @@
         email: fd.get("email").trim(),
         guests_count: attending ? count : 0,
         guest_names: attending ? guestNames.join(", ") : "",
+        meals: attending ? [...mealRows.querySelectorAll(".meal-row")].map((row, i) =>
+          `${i === 0 ? fd.get("name").trim() : guestNames[i - 1]}: ${{ meat: "Meat", fish: "Fish", veg: "Vegetarian" }[row.querySelector("input:checked").value]}`).join("; ") : "",
         dietary: attending ? (fd.get("dietary") === "yes" ? "Yes" : "No") : "",
         dietary_details: attending && fd.get("dietary") === "yes" ? fd.get("dietary_details").trim() : "",
         message: (fd.get("message") || "").trim(),
